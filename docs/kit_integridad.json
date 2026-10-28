@@ -1,0 +1,14 @@
+{
+  "repositorio": "cristiancampos-docente/U1-S03-A02-KIT-ALUMNO",
+  "commit": "817da49f59b3f18dfd9e0fc1fd0be5dc221c4121",
+  "git_blob_sha1": {
+    "test/etapa1_dominio_test.dart": "ec9dba2bc4ff3e707e8a8d5d15ce96f1c202bd84",
+    "test/etapa2_datos_test.dart": "88f07ab8d19fb4d8e26de115c890bb1b4b303844",
+    "test/etapa3_viewmodel_test.dart": "8d25b434a0b3c8ce274679119e6822ff87abb06c",
+    "test/etapa4_change_notifier_test.dart": "11633ea717410e35d68319ab595a26b79e69578e",
+    "test/etapa5_provider_test.dart": "e99754de900997293858396772178602a0c8085f",
+    "test/soporte/flujos.dart": "ce20dc0d864c3eda780fb3f469e0563060f8f5a5",
+    "test/soporte/repositorio_espia.dart": "71201124b2b93ecc17f7ebdb18e910bc47658d6b",
+    "verificar_estado.sh": "18d7f112a40562eda9552272b208f859ab28963e"
+  }
+}
