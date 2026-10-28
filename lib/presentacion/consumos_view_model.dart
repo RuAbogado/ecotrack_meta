@@ -15,9 +15,12 @@ class ConsumosViewModel extends ChangeNotifier {
   bool guardando = false;
   double meta = metaInicial;
 
-  double get total => consumos.fold<double>(0, (suma, consumo) => suma + consumo.litros);
+  double get total =>
+      consumos.fold<double>(0, (suma, consumo) => suma + consumo.litros);
   double get avance => avanceDeMeta(total: total, meta: meta);
   bool get metaSuperada => total > meta;
+  Map<String, double> get resumenPorLaboratorio =>
+      calcularTotalesPorLaboratorio(consumos);
 
   /// Recupera lo que ya existía en la fuente de datos.
   Future<void> cargar() async {

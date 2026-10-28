@@ -280,7 +280,47 @@ class PanelMeta extends StatelessWidget {
   }
 }
 
-/// Mantiene montadas las tres pestañas mientras cambia la visible.
+/// Presenta los litros acumulados de cada laboratorio sin conocer el gestor.
+class ResumenLaboratorios extends StatelessWidget {
+  const ResumenLaboratorios({super.key, required this.totales});
+
+  final Map<String, double> totales;
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = Theme.of(context).colorScheme;
+    return ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        Icon(Icons.water_outlined, size: 48, color: colores.primary),
+        const SizedBox(height: 12),
+        Text(
+          'Resumen por laboratorio',
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Consumo de agua en cada espacio.',
+          style: TextStyle(color: colores.onSurfaceVariant),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 20),
+        for (final entrada in totales.entries)
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.science_outlined, color: colores.primary),
+              title: Text(entrada.key),
+              trailing: Text('${entrada.value.toStringAsFixed(1)} L'),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Mantiene montadas las pestañas mientras cambia la visible.
+/// `resumen` es opcional: sin él quedan las tres pestañas del contrato.
 class PantallasEcoTrack extends StatefulWidget {
   const PantallasEcoTrack({
     super.key,
@@ -288,12 +328,14 @@ class PantallasEcoTrack extends StatefulWidget {
     required this.registro,
     required this.historial,
     required this.meta,
+    this.resumen,
   });
 
   final String titulo;
   final Widget registro;
   final Widget historial;
   final Widget meta;
+  final Widget? resumen;
 
   @override
   State<PantallasEcoTrack> createState() => _PantallasEcoTrackState();
@@ -308,18 +350,34 @@ class _PantallasEcoTrackState extends State<PantallasEcoTrack> {
       appBar: AppBar(title: Text(widget.titulo)),
       body: IndexedStack(
         index: _indice,
-        children: [widget.registro, widget.historial, widget.meta],
+        children: [
+          widget.registro,
+          widget.historial,
+          widget.meta,
+          ?widget.resumen,
+        ],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _indice,
         onDestinationSelected: (indice) => setState(() => _indice = indice),
-        destinations: const [
-          NavigationDestination(
+        destinations: [
+          const NavigationDestination(
             icon: Icon(Icons.add_circle_outline),
             label: 'Registro',
           ),
-          NavigationDestination(icon: Icon(Icons.history), label: 'Historial'),
-          NavigationDestination(icon: Icon(Icons.track_changes), label: 'Meta'),
+          const NavigationDestination(
+            icon: Icon(Icons.history),
+            label: 'Historial',
+          ),
+          const NavigationDestination(
+            icon: Icon(Icons.track_changes),
+            label: 'Meta',
+          ),
+          if (widget.resumen != null)
+            const NavigationDestination(
+              icon: Icon(Icons.bar_chart_outlined),
+              label: 'Resumen',
+            ),
         ],
       ),
     );

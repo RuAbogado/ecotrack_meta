@@ -23,6 +23,7 @@ class AppProvider extends StatelessWidget {
           registro: RegistroProvider(),
           historial: HistorialProvider(),
           meta: MetaProvider(),
+          resumen: ResumenProvider(),
         ),
       ),
     );
@@ -59,14 +60,35 @@ class MetaProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<ConsumosViewModel>();
+    final datos = context
+        .select<
+          ConsumosViewModel,
+          ({double total, double meta, double avance, bool superada})
+        >(
+          (vm) => (
+            total: vm.total,
+            meta: vm.meta,
+            avance: vm.avance,
+            superada: vm.metaSuperada,
+          ),
+        );
     return PanelMeta(
-      usado: vm.total,
-      meta: vm.meta,
-      avance: vm.avance,
-      superada: vm.metaSuperada,
+      usado: datos.total,
+      meta: datos.meta,
+      avance: datos.avance,
+      superada: datos.superada,
       alSubir: () => context.read<ConsumosViewModel>().subirMeta(),
       alBajar: () => context.read<ConsumosViewModel>().bajarMeta(),
     );
+  }
+}
+
+class ResumenProvider extends StatelessWidget {
+  const ResumenProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = context.watch<ConsumosViewModel>();
+    return ResumenLaboratorios(totales: vm.resumenPorLaboratorio);
   }
 }

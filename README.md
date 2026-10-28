@@ -1,6 +1,6 @@
 # EcoTrack Meta
 
-Práctica de gestión de estado con Flutter, ChangeNotifier y provider. Registro, Historial y Meta comparten un mismo ViewModel, con dos variantes de cableado.
+Práctica de gestión de estado con Flutter, ChangeNotifier y provider. Registro, Historial, Meta y Resumen comparten un mismo ViewModel, con dos variantes de cableado.
 
 ## Ejecutar
 
@@ -11,7 +11,7 @@ flutter run
 flutter run -t lib/main_change_notifier.dart
 ```
 
-Ambas muestran las mismas tres pestañas con diseño de agua y naturaleza. El repositorio actual conserva los consumos solo mientras la aplicación está abierta.
+Ambas muestran las mismas cuatro pestañas con diseño de agua y naturaleza. La entrada principal simula un guardado de un segundo. El repositorio conserva los consumos solo mientras la aplicación está abierta.
 
 ## Kit de evaluación
 
@@ -40,3 +40,4 @@ Validación final: `flutter analyze`, `bash verificar_estado.sh` y `flutter test
 
 - [Tabla de gestión de estado](docs/estado.md)
 - [Resultados por etapa](docs/validacion.md)
+- [Retos extra y su comprobación](docs/extras.md)

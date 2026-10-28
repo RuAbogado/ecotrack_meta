@@ -41,6 +41,7 @@ class _AppChangeNotifierState extends State<AppChangeNotifier> {
         registro: RegistroCN(vm: _vm),
         historial: HistorialCN(vm: _vm),
         meta: MetaCN(vm: _vm),
+        resumen: ResumenCN(vm: _vm),
       ),
     );
   }
@@ -96,6 +97,21 @@ class MetaCN extends StatelessWidget {
         alSubir: vm.subirMeta,
         alBajar: vm.bajarMeta,
       ),
+    );
+  }
+}
+
+class ResumenCN extends StatelessWidget {
+  const ResumenCN({super.key, required this.vm});
+
+  final ConsumosViewModel vm;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: vm,
+      builder: (context, _) =>
+          ResumenLaboratorios(totales: vm.resumenPorLaboratorio),
     );
   }
 }
